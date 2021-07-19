@@ -7,7 +7,7 @@ import numpy  as np
 import talib
 
 exchange = ccxt.binance()
-bars = exchange.fetch_ohlcv("ETH/USDT", timeframe='4h', limit=1000)
+bars = exchange.fetch_ohlcv("YOYOBTC", timeframe='4h', limit=1000)
 
 df = pd.DataFrame(bars ,columns=['time', 'open', 'high','low' ,'close', 'volume'])
 df['time'] = pd.to_datetime(df['time'], unit='ms')
