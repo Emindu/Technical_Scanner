@@ -1,4 +1,6 @@
 ccxt
-TA-Lib
 flask
 pandas
+python-binance
+numpy
+TA-Lib

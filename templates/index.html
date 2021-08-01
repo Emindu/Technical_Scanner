@@ -36,7 +36,7 @@
      
         {%  if tokens[token][current_pattern]%}
         <tr>
-            <td>{{token}}</td>
+            <td><a href="{{tokens[token]['url']}}" target="_blank">{{token}}</a></td>
             <td class="{{tokens[token][current_pattern]}}">{{tokens[token][current_pattern]}} </td>
         </tr>
 

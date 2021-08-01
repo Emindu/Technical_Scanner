@@ -9,6 +9,7 @@ import csv
 
 app = Flask(__name__)
 exchange = ccxt.binance()
+binance_url = "https://www.binance.com/en/trade/"
 
 @app.route('/')
 def index():
@@ -18,9 +19,8 @@ def index():
     with open('data/dataset.csv') as f:
         headers = next(f) 
         for  row in csv.reader(f):
-            tokens[row[0]] = {'symbol': row[1]}
-    
-    print(tokens)
+            tokens[row[0]] = {'symbol': row[1], 'base' : row[2]}
+
 
 
 
@@ -34,7 +34,6 @@ def index():
             # print(df)
             pattern_function = getattr(talib, current_pattern)
             symbol = filename.split('.')[0]
-            print(symbol)
             result = pattern_function(df["open"], df["high"], df["low"], df["close"])
             # print(result)
             lastResult = result.tail(1).values[0]
@@ -45,8 +44,8 @@ def index():
                 tokens[symbol][current_pattern] = 'Bearish'
             else:
                 tokens[symbol][current_pattern] = None
+            tokens[symbol]["url"] = binance_url + tokens[symbol]["symbol"] + "_" + tokens[symbol]["base"]
 
-    print(tokens)
     return render_template('index.html', patterns=patterns, tokens=tokens, current_pattern=current_pattern)
 
 @app.route('/snapshot')
